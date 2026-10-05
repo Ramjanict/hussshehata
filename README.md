@@ -9,6 +9,7 @@
 </p>
 
 <p align="center">
+  <a href="https://hussshehata.vercel.app/" target="_blank"><img src="https://img.shields.io/badge/🚀_Live_Demo-hussshehata.vercel.app-blueviolet?style=for-the-badge&logo=vercel" alt="Live Demo" /></a>
   <a href="#-key-features"><img src="https://img.shields.io/badge/Status-Production%20Ready-success?style=for-the-badge" alt="Status" /></a>
   <a href="#-tech-stack"><img src="https://img.shields.io/badge/React-19.1.0-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React" /></a>
   <a href="#-tech-stack"><img src="https://img.shields.io/badge/TypeScript-5.8-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" /></a>
@@ -16,6 +17,21 @@
   <a href="#-tech-stack"><img src="https://img.shields.io/badge/Vite-7.0-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite" /></a>
   <a href="#-tech-stack"><img src="https://img.shields.io/badge/Redux%20Toolkit-RTK%20Query-764ABC?style=for-the-badge&logo=redux&logoColor=white" alt="Redux" /></a>
 </p>
+
+---
+
+## 🌐 Live Deployment & Instant Demo Access
+
+> 🚀 **Live Demo URL:** [https://hussshehata.vercel.app/](https://hussshehata.vercel.app/)
+
+The application features instant, pre-filled credentials directly on the login page so anyone can test the system without registering:
+
+| Role | Pre-filled Email | Pre-filled Password | Target Interface |
+|---|---|---|---|
+| **👔 Super Admin** | `admin@vibecheck.io` | `admin123` | [Admin Dashboard](https://hussshehata.vercel.app/dashboard) |
+| **🎧 Professional DJ** | `dj@vibecheck.io` | `dj123` | [DJ Command Portal](https://hussshehata.vercel.app/dj) |
+
+*💡 Tip: Click either **"Admin Portal"** or **"DJ Portal"** quick-access pill on the login screen, then tap **"Sign In Now"** to explore either role.*
 
 ---
 
@@ -121,7 +137,7 @@ hussshehata/
 │   ├── pages/
 │   │   ├── admin/                    # Admin dashboard pages
 │   │   ├── dj/                       # DJ portal pages (LiveStatus, Booking, Analytics, Profile)
-│   │   ├── Login.tsx
+│   │   ├── Login.tsx                 # Login with pre-filled demo accounts
 │   │   ├── Register.tsx
 │   │   └── ForgotPassword.tsx
 │   ├── routes/                       # Route declarations & ProtectedRoute guard

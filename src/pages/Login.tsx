@@ -1,11 +1,11 @@
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, KeyRound, Sparkles } from "lucide-react";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("admin@vibecheck.io");
+  const [password, setPassword] = useState("admin123");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
 
@@ -19,9 +19,23 @@ const Login = () => {
     }
 
     try {
-      navigate("/dashboard");
+      if (email.toLowerCase().includes("dj")) {
+        navigate("/dj");
+      } else {
+        navigate("/dashboard");
+      }
     } catch (err) {
       setError("Invalid email or password");
+    }
+  };
+
+  const handleSelectRole = (role: "admin" | "dj") => {
+    if (role === "admin") {
+      setEmail("admin@vibecheck.io");
+      setPassword("admin123");
+    } else {
+      setEmail("dj@vibecheck.io");
+      setPassword("dj123");
     }
   };
 
@@ -35,16 +49,52 @@ const Login = () => {
       <div className="relative w-full max-w-md">
         <div className="backdrop-blur-xl bg-card/50 border border-border rounded-2xl p-8 shadow-2xl">
           {/* Logo */}
-          <div className="flex justify-center mb-8">
-            <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center">
-              <span className="text-2xl font-bold text-card">V</span>
+          <div className="flex justify-center mb-6">
+            <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg shadow-primary/20">
+              <span className="text-3xl font-extrabold text-card">V</span>
             </div>
           </div>
 
-          <h1 className="text-2xl font-bold text-center mb-2">VibeCheck</h1>
-          <p className="text-center text-muted-foreground mb-8">
-            Sign in to your account
+          <h1 className="text-2xl font-bold text-center mb-1">VibeCheck</h1>
+          <p className="text-center text-muted-foreground text-sm mb-6">
+            Sign in to access your platform dashboard
           </p>
+
+          {/* Quick Demo Access Box */}
+          <div className="mb-6 p-3.5 rounded-xl border border-primary/30 bg-primary/10 backdrop-blur-sm">
+            <div className="flex items-center gap-2 text-xs font-semibold text-primary mb-2">
+              <Sparkles size={14} />
+              <span>Quick Demo Access (Pre-filled):</span>
+            </div>
+            <div className="grid grid-cols-2 gap-2">
+              <button
+                type="button"
+                onClick={() => handleSelectRole("admin")}
+                className={`py-1.5 px-2 text-xs font-medium rounded-lg border transition text-center ${
+                  email.includes("admin")
+                    ? "bg-primary text-primary-foreground border-primary shadow-sm"
+                    : "bg-background/60 text-muted-foreground border-border hover:bg-background"
+                }`}
+              >
+                👔 Admin Portal
+              </button>
+              <button
+                type="button"
+                onClick={() => handleSelectRole("dj")}
+                className={`py-1.5 px-2 text-xs font-medium rounded-lg border transition text-center ${
+                  email.includes("dj")
+                    ? "bg-primary text-primary-foreground border-primary shadow-sm"
+                    : "bg-background/60 text-muted-foreground border-border hover:bg-background"
+                }`}
+              >
+                🎧 DJ Portal
+              </button>
+            </div>
+            <div className="mt-2 text-[11px] text-muted-foreground/80 flex items-center justify-between">
+              <span>User: <strong className="text-foreground">{email}</strong></span>
+              <span>Pass: <strong className="text-foreground">{password}</strong></span>
+            </div>
+          </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
@@ -54,6 +104,7 @@ const Login = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="your@email.com"
+                required
                 className="w-full px-4 py-3 rounded-lg bg-input border border-border text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition"
               />
             </div>
@@ -68,6 +119,7 @@ const Login = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
+                  required
                   className="w-full px-4 py-3 rounded-lg bg-input border border-border text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition"
                 />
                 <button
@@ -88,15 +140,16 @@ const Login = () => {
 
             <button
               type="submit"
-              className="w-full py-3 rounded-lg bg-gradient-to-r from-primary to-primary/80 text-primary-foreground font-semibold hover:shadow-lg hover:shadow-primary/50 disabled:opacity-50 transition duration-300"
+              className="w-full py-3 rounded-lg bg-gradient-to-r from-primary to-primary/80 text-primary-foreground font-semibold hover:shadow-lg hover:shadow-primary/50 disabled:opacity-50 transition duration-300 cursor-pointer flex items-center justify-center gap-2"
             >
-              Sign In
+              <KeyRound size={18} />
+              Sign In Now
             </button>
           </form>
 
           <div className="mt-4 text-center">
             <Link
-              to="/auth/forgot-password"
+              to="/forgot-password"
               className="text-primary hover:underline text-sm"
             >
               Forgot password?
@@ -107,7 +160,7 @@ const Login = () => {
             <p className="text-center text-muted-foreground text-sm">
               Don&apos;t have an account?{" "}
               <Link
-                to="/auth/register"
+                to="/signup"
                 className="text-primary hover:underline"
               >
                 Create one
@@ -116,14 +169,22 @@ const Login = () => {
           </div>
 
           <div className="mt-6 flex gap-3">
-            <button className="flex-1 py-2 rounded-lg border border-border bg-card/50 hover:bg-card/80 transition flex items-center justify-center gap-2">
-              <svg className="w-5 h-5" viewBox="0 0 24 24">
+            <button
+              type="button"
+              onClick={() => navigate("/dashboard")}
+              className="flex-1 py-2 rounded-lg border border-border bg-card/50 hover:bg-card/80 transition flex items-center justify-center gap-2 text-xs"
+            >
+              <svg className="w-4 h-4" viewBox="0 0 24 24">
                 <circle cx="12" cy="12" r="10" fill="#4285F4" />
               </svg>
               Google
             </button>
-            <button className="flex-1 py-2 rounded-lg border border-border bg-card/50 hover:bg-card/80 transition flex items-center justify-center gap-2">
-              <svg className="w-5 h-5" viewBox="0 0 24 24">
+            <button
+              type="button"
+              onClick={() => navigate("/dashboard")}
+              className="flex-1 py-2 rounded-lg border border-border bg-card/50 hover:bg-card/80 transition flex items-center justify-center gap-2 text-xs"
+            >
+              <svg className="w-4 h-4" viewBox="0 0 24 24">
                 <circle cx="12" cy="12" r="10" fill="white" />
               </svg>
               Apple
